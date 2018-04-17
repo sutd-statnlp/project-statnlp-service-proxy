@@ -2,8 +2,6 @@ package manager
 
 import (
 	"sync"
-
-	"../util"
 )
 
 // ProxyManager .
@@ -23,18 +21,24 @@ func GetProxyManagerInstance() *ProxyManager {
 	return instance
 }
 
-// AddApiKey .
-func (apiKeyManager ProxyManager) AddApiKey(apiKey string) {
-	apiKeyManager.ApiKeyMap[apiKey] = util.GetCurrentTimestamp()
+// AddProxyUrl .
+func (proxyManager ProxyManager) AddProxyUrl(apiKey string, url string) {
+	proxyManager.ApiKeyMap[apiKey] = url
 }
 
-// GetTimestamp .
-func (apiKeyManager ProxyManager) GetTimestamp(apiKey string) string {
-	return apiKeyManager.ApiKeyMap[apiKey]
+// GetProxyUrl .
+func (proxyManager ProxyManager) GetProxyUrl(apiKey string) string {
+	return proxyManager.ApiKeyMap[apiKey]
 }
 
 // IsExisted .
-func (apiKeyManager ProxyManager) IsExisted(apiKey string) bool {
-	timestamp := apiKeyManager.GetTimestamp(apiKey)
-	return len(timestamp) > 0
+func (proxyManager ProxyManager) IsExisted(apiKey string) bool {
+	url := proxyManager.GetProxyUrl(apiKey)
+	return len(url) > 0
+}
+
+// DeleteApiKey .
+func (proxyManager ProxyManager) DeleteApiKey(apiKey string) bool {
+	delete(proxyManager.ApiKeyMap, apiKey)
+	return true
 }

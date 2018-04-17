@@ -4,7 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 
 	"./controller"
-	"./proxy"
+	"./resource"
 )
 
 func main() {
@@ -22,7 +22,7 @@ func setupRoutes() *gin.Engine {
 	})
 
 	controller.InitHomeRoutes(router)
-	resource.InitTweetProxyRoutes(router)
+	resource.InitProxyRoutes(router)
 
 	return router
 }
